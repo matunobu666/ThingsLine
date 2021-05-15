@@ -1,0 +1,93 @@
+﻿
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/Scripts")
+
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Scripts/jquery-3.5.1.slim.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+
+
+    <style type="text/css">
+
+
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            padding-top: 40px;
+        }
+
+        div#header-Home {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        div#centerbody {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<div>
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+
+        <div class="navbar navbar-dark fixed-top bg-dark navbar-expand-md">
+            <a href="../">
+                <img border="0" height="40" src="../img/logo/ThingsLine_long2.png" />
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav text-left">
+                    &nbsp;&nbsp;
+                    <li class="nav-item">@Html.ActionLink("マップ", "Index", "Map", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item"><a class="nav-link" href="https://sites.google.com/view/thingsline/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank">デバイス購入</a></li>
+                    <li class="nav-item">@Html.ActionLink("問い合わせ", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+
+
+                <ul class="navbar-nav ml-auto">
+                    @Html.Partial("_LoginPartial")
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+
+</div>
+
+
+
+
+<div id="centerbody">
+    @RenderBody()
+</div>
+@RenderSection("scripts", required: false)
+
+
+
+
+
+

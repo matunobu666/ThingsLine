@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{ 
+    <div class="btn-group">
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            @Html.AntiForgeryToken()
+        }
+
+        <button type="button" class="btn btn-outline-success">
+            @Html.ActionLink(User.Identity.GetUserName(), "Index", "Setting")
+        </button>
+
+        <button type="button" class="btn btn-outline-danger">
+            <a class="" href="javascript:document.getElementById('logoutForm').submit()">ログオフ</a>
+        </button>
+
+    </div>
+
+}
+else
+{
+
+    <li>
+        @Html.ActionLink("ログイン", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    </li>
+
+}

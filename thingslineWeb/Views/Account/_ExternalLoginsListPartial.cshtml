@@ -1,0 +1,50 @@
+﻿@model thingslineWeb.Models.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+
+
+<style type="text/css">
+    .btn-default {
+        border: 0px;
+        width: 302px;
+        height: 88px;
+        background: url(/img/btn_login_press.png);
+        background-repeat: no-repeat;
+    }
+</style>
+
+<center>
+
+    <h2>ログイン</h2>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    @{
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken()
+
+            <button type="submit" class="btn btn-default" id="Line" name="provider" value="Line" title="Line アカウントを使用してログイン"></button>
+        }
+    }
+    <br>
+    <br>
+    <br>
+    <br>
+    LINEの友達追加で今の状態をメッセージで受け取れます
+    <br>
+    <br>
+    <a href="https://lin.ee/6KrEnql"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
+    <br>
+    <img src="https://qr-official.line.me/sid/M/738bftuz.png">
+    <br>
+    <br>
+    <br>
+    <!--
+    @Html.ActionLink("登録", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<br>
+
+        -->
+    <br>
+</center>
+

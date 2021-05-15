@@ -1,0 +1,2 @@
+﻿delete
+from [dbo].[AspNetUsers]

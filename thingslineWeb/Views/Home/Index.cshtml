@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNet.Identity
+@section scripts {
+    <script type="text/javascript">
+
+    </script>
+}
+
+
+<!--************************
+   ログオン状態チェック
+****************************-->
+@if (Request.IsAuthenticated)
+{
+    //アカウント認証済み
+    // Map画面に遷移＜リダイレクトに変更
+    <meta http-equiv="refresh" content="0;URL=Map/Index">
+
+}
+else
+{
+    //アカウント未認証
+    // Login画面に遷移
+    <meta http-equiv="refresh" content="0;URL=../Account/Login">
+
+}
