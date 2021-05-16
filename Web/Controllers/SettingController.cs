@@ -28,8 +28,30 @@ namespace thingslineWeb.Controllers
 
             ViewBag.retSettingUserDataModel = retSettingUserDataModel;
 
-            return View();
+            return View(retSettingUserDataModel);
         }
+
+        // GET: Setting6
+        [HttpPost]
+        public ActionResult Index(SettingUserDataModel getSettingUserDataModel)
+        {
+
+            mdlSetting mSetting = new mdlSetting();
+
+            //key情報をセット
+            getSettingUserDataModel.UserID = User.Identity.GetUserId();
+
+            //情報取得
+            SettingUserDataModel retSettingUserDataModel = mSetting.getSettingUserInfo(getSettingUserDataModel);
+
+
+            ViewBag.retSettingUserDataModel = retSettingUserDataModel;
+
+            return View(retSettingUserDataModel);
+        }
+
+
+
 
     }
 }

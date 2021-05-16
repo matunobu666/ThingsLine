@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 @using System.Device.Location
+@model thingslineWeb.Models.SettingUserDataModel
 
 @if (Request.IsAuthenticated == false)
 {
@@ -293,8 +294,6 @@ else
         }
     </style>
 
-
-
     <body>
 
         <!--サイドサブメニューアコーディオン-->
@@ -402,38 +401,48 @@ else
         <div id="container">
 
             <main id="main">
-                <div id="main-visual" style="overflow-y:scroll">
 
-                    <table>
+                @using (Html.BeginForm("index", "Setting", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Settingform", enctype = "multipart/form-data" }))
+                {
+                    <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
                         <tr>
-                            <td>userID</td>
+                            <td align="right" nowrap>login_userID</td>
                             <td>@ViewBag.retSettingUserDataModel.UserID</td>
                         </tr>
-                        @foreach (var item in ViewBag.retSettingUserDataModel.SettingUserInfoModel)
+                        @foreach (var item in ViewBag.retSettingUserDataModel.UserInfo)
                         {
                             <tr>
-                                <td>userID</td>
-                                <td>@item.userID</td>
+                                <td align="right" nowrap>userID</td>
+                                <td align="right" nowrap>@item.userID</td>
                             </tr>
                             <tr>
-                                <td>name1</td>
-                                <td>@item.name1</td>
+                                <td align="right" nowrap>name1</td>
+                                <td align="right" nowrap>
+                                    @item.name1
+                                </td>
+                                <td align="right" nowrap>
+                                    <input type="text" id="name1" name="UserInfo.name1" value="@item.name1">
+                                </td>
                             </tr>
                             <tr>
-                                <td>name2</td>
-                                <td>@item.name2</td>
+                                <td align="right" nowrap>name2</td>
+                                <td align="right" nowrap>@item.name2</td>
+                                <td align="right" nowrap>
+                                    @Html.EditorFor(model => model.UserInfo)
+                                </td>
                             </tr>
                             <tr>
-                                <td>nickname</td>
-                                <td>@item.nickname</td>
+                                <td align="right" nowrap>nickname</td>
+                                <td align="right" nowrap>@item.nickname</td>
                             </tr>
                             <tr>
-                                <td>Email</td>
-                                <td>@item.Email</td>
+                                <td align="right" nowrap>Email</td>
+                                <td align="right" nowrap>@item.Email</td>
                             </tr>
                         }
-
-</div>
+                    </table>
+                    <input type="submit" value="更新" />
+                }
             </main>
 
         </div>

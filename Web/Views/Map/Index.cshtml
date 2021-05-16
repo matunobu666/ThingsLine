@@ -937,12 +937,10 @@ else
 
 
                             @Html.EditorFor(model => model.SearchCndDate, new
-                            {
-                                htmlAttributes = new
+                            {htmlAttributes = new
                                 {
-                                    @Value = ViewBag.retMapViweModel.SearchCndDate.ToString("yyyy-MM-dd")
-                                                                                                       ,
-                                    onchange = "document.getElementById('Mapform').submit()"
+                                    Value = @ViewBag.retMapViweModel.SearchCndDate.ToString("yyyy-MM-dd")
+                                    ,onchange = "document.getElementById('Mapform').submit()"
                                 }
                             })
                         </div>

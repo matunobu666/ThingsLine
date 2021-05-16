@@ -32,7 +32,6 @@ namespace thingslineWeb.Models
         public string Maplat { get; set; }
         public string Maplon { get; set; }
 
-
         /*サイドバー用*/
         /*デバイスリスト*/
         public IEnumerable<UserDevice> UserDevice { get; set; }
@@ -40,7 +39,6 @@ namespace thingslineWeb.Models
         public IEnumerable<DD> DD { get; set; }
         public IEnumerable<DD> imgDD { get; set; }
         public IEnumerable<LastDD> LastDD { get; set; }
-
     }
 
 

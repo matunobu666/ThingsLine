@@ -62,11 +62,11 @@ namespace thingslineWeb.Modules
             List<SettingUserInfoModel> retSUIModel = mCommon.GetSQL<SettingUserInfoModel>(strSql);
             if (retSUIModel.Count > 0)
             {
-                retSettingUserDataModel.SettingUserInfoModel = retSUIModel;
+                retSettingUserDataModel.UserInfo = retSUIModel;
             }
             else
             {
-                retSettingUserDataModel.SettingUserInfoModel = new List<SettingUserInfoModel>();
+                retSettingUserDataModel.UserInfo = new List<SettingUserInfoModel>();
             }
 
             //RET

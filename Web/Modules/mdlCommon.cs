@@ -1,22 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Text;
-using System.Data.SqlClient;
-using thingslineWeb.Modules;
-using Newtonsoft.Json;
 using System.Net.Http;
-using System.Reflection;
 using System.Collections.Generic;
-using System.Data;
-using Newtonsoft.Json.Linq;
-using System.Configuration;
-
-using System.Globalization;
-using System.Xml.Serialization;
-using System.Linq;
 using System.Net.Http.Json;
 using thingslineWeb.Models;
-using module;
 
 namespace thingslineWeb.Modules
 {
