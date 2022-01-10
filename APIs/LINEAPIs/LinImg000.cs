@@ -8,20 +8,32 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Net.Http;
-using LINEAPI;
 using System.Text;
 using System.Collections.Generic;
+using ThingsLine.Models;
+using ThingsLineAPIs.Modules;
+using ThingsLine.Modules;
+using ThingsLineAPIs.Models;
 
-namespace ThingsLine.LINEAPI
+namespace ThingsLineAPIs.LINEAPIs
 {
     public class LinImg000
     {
-        private readonly HttpClient _httpClient;
 
-        public LinImg000()
-        {
-            _httpClient = new HttpClient();
-        }
+        //-------------------------------------------------
+        //ThingsLineAPIs.Modules
+        //LINE
+        mdlLineMsg LineAPIObj = new mdlLineMsg();
+        modLINEMsg mLINE = new modLINEMsg();
+        //SQLserver
+        modSQLServer mSQLServer = new modSQLServer();
+        StringBuilder sSQL = new StringBuilder();
+        //Storage
+        modStorage mBlob = new modStorage();
+
+        //-------------------------------------------------
+        private readonly HttpClient _httpClient;
+        public LinImg000(){_httpClient = new HttpClient();}
         
         [FunctionName("LinImg000")]
         public async Task<IActionResult> Run(
@@ -29,23 +41,14 @@ namespace ThingsLine.LINEAPI
         {
             log.LogInformation("[LinImg000] Start ");
 
-            //SQLserver
-            module.mdlSQLServer mSQLServer = new module.mdlSQLServer();
-            StringBuilder sSQL = new StringBuilder();
-
-            module.mdlStorage mBlob = new module.mdlStorage();
-            module.mdlLINE mLINE = new module.mdlLINE();
-
-
             try
             {
-
                 //-------------------------------
                 // Get body
                 //-------------------------------
                 string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
                 // Deserialize
-                var data = JsonConvert.DeserializeObject<LinMsgModels.LinImg000>(requestBody);
+                var data = JsonConvert.DeserializeObject<mdlLineMsg.LinImg000>(requestBody);
                 log.LogInformation("[LinImg000] requestBody: " + requestBody);
 
                 //-----------------------------------

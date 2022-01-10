@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNet.Identity
+
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="~/Scripts/bootstrap-5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+
+<body>
+    <script src="~/Scripts/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.8.1/js/perfect-scrollbar.jquery.min.js"></script>
+
+
+
+
+    <nav class="navbar  navbar-expand-sm navbar-dark bg-dark">
+
+        <div class="navbar  navbar-dark fixed-top bg-dark navbar-expand-md">
+
+            <a href="../"><img border="0" height="40" src="../img/logo/ThingsLine_long2.png" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 1000px;">
+                    <li class="nav-item"><a class="nav-item nav-link" href="../">マップ</a></li>
+                    <li class="nav-item">                    </li>
+
+
+                    <li class="nav-item"><a class="nav-item nav-link" target="MainFrame" href="@Url.Action("LoginUserInfo","Setting")">ログインユーザー</a></li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="@Url.Action("UserInfo","Setting")">ユーザー</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#">バイク</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#">デバイス</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#">タイマー</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#">いろいろ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#">Menu#3</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#">Menu#1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#">Menu#2</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-item nav-link" href="#">Menu#3</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        $(document).ready(function () {
+            $(".navbar-nav li a").click(function (event) {
+                $(".navbar-collapse").collapse('hide');
+            });
+        });
+    </script>
+
+    <div id="centerbody">
+        @RenderBody()
+    </div>
+
+</body>
+</html>
+
+
+
+
+

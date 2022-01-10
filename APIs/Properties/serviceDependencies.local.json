@@ -1,8 +1,10 @@
 {
   "dependencies": {
     "storage1": {
-      "type": "storage.emulator",
-      "connectionId": "AzureWebJobsStorage"
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/matu666",
+      "type": "storage.azure",
+      "connectionId": "matu666",
+      "secretStore": "LocalSecretsFile"
     }
   }
 }

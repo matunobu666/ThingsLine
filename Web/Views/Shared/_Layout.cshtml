@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
@@ -9,12 +11,13 @@
 
     @Scripts.Render("~/Scripts")
 
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
-    <script src="~/Scripts/jquery-3.5.1.slim.min.js"></script>
-    <script src="~/Scripts/popper.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
 
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Bootstrap CSS -->
+    <link href="~/Scripts/bootstrap-5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style type="text/css">
 
@@ -44,50 +47,68 @@
             text-align: center;
         }
     </style>
-
 </head>
 
-<div>
+<body>
+    <script src="~/Scripts/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 
         <div class="navbar navbar-dark fixed-top bg-dark navbar-expand-md">
-            <a href="../">
-                <img border="0" height="40" src="../img/logo/ThingsLine_long2.png" />
-            </a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+
+            <a href="../"><img border="0" height="40" src="../img/logo/ThingsLine_long2.png" /></a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav text-left">
+
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 1000px;">
                     &nbsp;&nbsp;
-                    <li class="nav-item">@Html.ActionLink("マップ", "Index", "Map", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Map")">マップ</a></li>
                     <li class="nav-item"><a class="nav-link" href="https://sites.google.com/view/thingsline/%E3%83%9B%E3%83%BC%E3%83%A0" target="_blank">デバイス購入</a></li>
-                    <li class="nav-item">@Html.ActionLink("問い合わせ", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Contact", "Home")">問い合わせ</a></li>
 
 
-                <ul class="navbar-nav ml-auto">
-                    @Html.Partial("_LoginPartial")
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @User.Identity.GetUserName()
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Setting")">管理画面</a></li>
+                                <li><a class="dropdown-item" href="#">予備</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">ログオフ</a></li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("ログイン", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
-
     </nav>
 
-</div>
 
+    <div id="centerbody">
+        @RenderBody()
+    </div>
+    @RenderSection("scripts", required: false)
 
+</body>
 
-
-<div id="centerbody">
-    @RenderBody()
-</div>
-@RenderSection("scripts", required: false)
-
-
-
+</html>
 
 
 

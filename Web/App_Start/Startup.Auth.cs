@@ -10,7 +10,6 @@ using Owin.Security.Middleware.Line;
 using Line.Login.Models;
 using System.Configuration;
 
-
 namespace thingslineWeb
 {
     public partial class Startup
@@ -38,7 +37,7 @@ namespace thingslineWeb
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // 2 要素認証プロセスの中で 2 つ目の要素を確認するときにユーザー情報を一時的に保存するように設定します。

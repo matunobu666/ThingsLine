@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 
 @if (Request.IsAuthenticated)
-{ 
+{
     <div class="btn-group">
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
         {

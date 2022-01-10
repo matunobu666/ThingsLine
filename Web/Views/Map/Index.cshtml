@@ -13,7 +13,6 @@ else
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     @model thingslineWeb.Models.MapViweModel
     @section scripts {
@@ -102,7 +101,7 @@ else
                                 });
                             } else {
                                 //画像マーカーピン
-                                var imgURL =  "https://matu666.blob.core.windows.net/" + item.I_fileID;
+                                var imgURL = "https://matu666.blob.core.windows.net/" + item.I_fileID;
                                 var marker = new google.maps.Marker({
                                     position: new google.maps.LatLng(item.d_lat, item.d_lon),
                                     map: map,
@@ -116,9 +115,11 @@ else
 
                                 var infowindow = new google.maps.InfoWindow({
                                     content: "<div class='infoDiv'>"
-                                        + "<a href='#' class='pop'><img  src='" + imgURL + "' style='width: 200px'></a>"
-                                        + "<div><h4>d_lon: " + item.d_lon + "</h4></div>"
+                                        + "<a href='#' class='pop'><img  src='" + imgURL + "' style='width: 100px'></a>"
+                                        + "<div>d_lon: " + item.d_lon + "</div>"
                                         + "</div>"
+
+
                                 });
 
                                 //-----------------------------------------
@@ -135,23 +136,76 @@ else
 
                         //-----------------------------------------
                         // map/clickイベントを取得するListenerを追加
+                        /*
                         google.maps.event.addListener(map, 'click', function () {
                             if (actInfoWindow) {
                                 actInfoWindow.close();
                             }
                         });
-
+                        */
 
                         //-----------------------------------------
                         // map/dblclickイベントを取得するListenerを追加
-                        google.maps.event.addListener(map, 'dblclick', clickEventFunc);
+                        /*google.maps.event.addListener(map, 'dblclick', clickEventFunc);
                         function clickEventFunc(event) {
+
+
+
                             alert(event.latLng.toString());
                         }
+                        */
+                        //地図の中心を取得。
+                        //Google Maps APIで中心の十字架を表示を併用する場合はそちらの方にある「var MapPX = map.getSize();」を削除。
 
 
                     })
+                    //地図のサイズを取得
+                    var MapPX = map.getSize();
 
+                    //右クリックメニューを作成
+                    var rmenu = document.createElement("div");
+
+                    //右クリックメニューのスタイル
+                    //CSSで定義したい場合は、rmenu.setAttribude("id","～任意のid名")
+                    rmenu.style.visibility = "hidden";
+                    rmenu.style.backgroundColor = "white";
+                    rmenu.style.border = "2px solid #ececec";
+                    rmenu.style.padding = "2px";
+                    rmenu.style.fontSize = "12px";
+                    rmenu.style.cursor = "pointer";
+                    rmenu.style.color = "#7176bf";
+
+                    //右クリックメニューをmap内に返す
+                    map.getContainer().appendChild(rmenu);
+
+                    //右クリック位置を取得してメニュー表示のイベント
+                    map_canvas.event.addListener(map, "singlerightclick", function (point) {
+                        var rmenux = point.x;
+                        var rmenuy = point.y;
+                        if (rmenux > (MapPX.width - 160)) { rmenux = MapPX.width - 160; }
+                        if (rmenuy > (MapPX.height - 40)) { rmenuy = MapPX.height - 40; }
+                        var rmenu_pos = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(rmenux, rmenuy));
+                        var rmenu_latlng = map.fromContainerPixelToLatLng(point);
+
+                        //右クリックメニューの内容(HTML）
+                        rmenu.innerHTML = "<a href='javascript:map.zoomIn();'>ズームインして詳細を表示</a><br />"
+                            + "<a href='javascript:map.zoomOut();'>ズームアウトして広域を表示</a><br />"
+                            + "<a href='javascript:map.panTo(new GLatLng" + rmenu_latlng + ");'>ここを地図の中心</a>"
+
+                        rmenu_pos.apply(rmenu);
+                        rmenu.style.visibility = "visible";
+                    });
+                    google.maps.event.addListener(map, "click", function () {
+                        if (rmenu.style.visibility == "visible") {
+                            rmenu.style.visibility = "hidden";
+                        }
+                    });
+                    //マップからフォーカスが外れたらメニューを非表示
+                    google.maps.event.addListener(map, "mouseout", function () {
+                        if (rmenu.style.visibility == "visible") {
+                            rmenu.style.visibility = "hidden";
+                        }
+                    });
                 </script>
         </section>
     }
@@ -160,14 +214,14 @@ else
     <style type="text/css">
         /***********************/
         /* ポップアップ*/
-        /* 
-        .modal-middle {
-            //モーダルウィンドウの縦表示位置を調整 margin: 5% auto;
+        
+        #modal-content {
+            top: 0;
+            width: 100%;
         }
-            */
         .modal-img_footer {
             /* //表示予定のテキストとボタンを中央揃え padding: .5em;
-            */ text-align: center;
+            */ text-align: left;
         }
 
         /***********************/
@@ -554,7 +608,24 @@ else
                 $(function () {
                     $('.pop').on('click', function () {
                         $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+
+                        var w1 = $(window).width();
+                        var h1 = $(window).height();
+
+                        if (w1 > 1200) {
+                            $('.imagepreview').attr('width', 1060);
+                        } else if (w1 > 1000) {
+                            $('.imagepreview').attr('width', 760);
+                        } else if (w1 > 500) {
+                            $('.imagepreview').attr('width', 460);
+                        } else if (w1 < 500) {
+                            $('.imagepreview').attr('width', w1-60);
+                        }
                         $('#imagemodal').modal('show');
+                        var imgw1 = $('.imagepreview').attr('width');
+                        var imgh1 = $('.imagepreview').attr('height');
+                        $('.window_size').text("現在のウィンドウサイズは、" + w1 + "-" + h1 + "-" + imgw1 + "-" + imgh1 + "です。");                          
+
                     });
 
                     // サイドサブメニューアコーディオン
@@ -598,6 +669,9 @@ else
                 wh = window.innerHeight - 60;
                 let elem = document.getElementById("sidebar-T1");
                 elem.style.height = wh + "px";
+
+
+
 
             };
 
@@ -644,33 +718,20 @@ else
 
 
         <!-- Modal -->
-        <div class="modal fade" id="image_Modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-            <div class="modal-dialog modal-lg modal-middle">
-                <!-- モーダルウィンドウの縦表示位置を調整・画像を大きく見せる-->
-                <div class="modal-content">
 
-                    <div class="modal-body">
-                        <img src="" id="imagepreview" style="width: 400px; height: 264px;">
-                    </div>
-                    <div class="modal-img_footer">
-                        <p>モーダル商品</p> //テキスト表示
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button> //ボタンを取り付け
-                    </div>
-
-                </div>
-            </div>
-    </div>
 
     <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
+        <div class="modal-dialog modal-dialog-centered  modal-xl" role="document" id="imagemodaldialog">
+            <div class="modal-content" >
+                <div class="modal-body" id="imagemodalcontent">
+                    <div class="window_size"></div>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <img src="" class="imagepreview" style="width: 100%;">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>　[削除]　[タイトル変更]
+                    <img src="" class="imagepreview">
                 </div>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>　[削除]　[タイトル変更]
             </div>
             <div class="modal-img_footer">
+
             </div>
         </div>
     </div>
@@ -678,238 +739,244 @@ else
     <body>
 
         <!-- /#MainBody -->
-                <div id="MainBody">
-                    <div id="nav-toggle">
-                        <div>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
+        <div id="MainBody">
+            <div id="nav-toggle">
+                <div>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
 
-                    <div id="sidebar-T1" style="overflow-y:scroll">
-                        <nav id="global-nav">
-                            <ul>
+            <div id="sidebar-T1" style="overflow-y:scroll">
+                <nav id="global-nav">
+                    <ul>
+                        <li><br></li>
+                        <li>
+                            グループ
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"  style="width:100%">
+                                    個人
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdown1" style="z-index:9999;width:100%">
 
-
-                                <li><br></li>
-
-
-
-
-                                <li>
-                                    グループ
-                                    <div class="dropdown">
-                                        <button type="button" id="dropdown1" style="width:100%"
-                                                class="btn btn-secondary dropdown-toggle"
-                                                data-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false">
-                                            個人
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown1" style="z-index:9999;width:100%">
-
-                                            <button type="submit" style="width:100%" name="groupID" value="440103227845569">テストG</button>
-                                            <a class="dropdown-item" href="#">機能未実装</a>
-                                            <a class="dropdown-item" href="#">バイク登録系</a>
-
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    バイク
-                                    <div class="dropdown">
-                                        <button type="button" id="dropdown1" style="width:100%"
-                                                class="btn btn-secondary dropdown-toggle"
-                                                data-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false">
-                                            Tiger Exploer XCA
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown1" style="z-index:9999;width:100%">
-                                            <a class="dropdown-item" href="#">GSX-R1100</a>
-                                            <a class="dropdown-item" href="#">機能未実装</a>
-                                            <a class="dropdown-item" href="#">バイク登録系</a>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    IMSI(仮置き)
-                                    <div class="dropdown">
-                                        <button type="button" id="dropdown1" style="width:100%"
-                                                class="btn btn-secondary dropdown-toggle"
-                                                data-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false">
-                                            @ViewBag.retMapViweModel.IMSI
-                                        </button>
-
-                                        <input type="hidden" name="afIMSI" value="@ViewBag.retMapViweModel.IMSI">
-                                        <div class="dropdown-menu" aria-labelledby="dropdown1" style="z-index:9999">
-                                            <input type="submit" name="IMSI" value="440103224700366">
-                                            <input type="submit" name="IMSI" value="440103227845569">
-                                            <button type="submit" style="width:100%"  name="IMSI" value="440103224700366">松村</button>
-                                            <button type="submit" style="width:100%" name="IMSI" value="440103227845569">立石</button>
-                                            <input type="submit" name="IMSI" value="440103216886668">
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li><br></li>
-
-                                <li class="sub-menu-T1">
-                                    <a href="#" class="sub-menu-T1-head">移動履歴 (@ViewBag.retMapViweModel.DD.Count)</a>
-                                    <ul class="sub-menu-T1-nav">
-
-                                        @{double NowRowNum = 0;
-                                            double BFRowNum = 0;
-                                            double imgCount = 0;
-                                            DateTime BFdt = DateTime.Now;
-
-                                            foreach (var item in ViewBag.retMapViweModel.DD)
-                                            {
-
-                                                var distance = new GeoCoordinate(item.d_lat, item.d_lon).GetDistanceTo(new GeoCoordinate(item.bf_lat, item.bf_lon));
-                                                <!--バッテリーアイコン-->
-                                                string batImg = "";
-                                                if (item.d_bat == -1) { batImg = "../img/bat/Bat09.png"; }
-                                                else if (item.d_bat == 1) { batImg = "../img/bat/Bat01.png"; }
-                                                else if (item.d_bat == 2) { batImg = "../img/bat/Bat02.png"; }
-                                                else if (item.d_bat == 3) { batImg = "../img/bat/Bat03.png"; }
-                                                <!--写真アイコン-->
-                                                //string CamImg = "";
-                                                //if (item.I_fileID == null) { CamImg = ""; }
-                                                //else if (item.I_fileID != null) { CamImg = "../img/453_ca_h.png"; }
-                                                <!--写真数-->
-                                                string CamImg = "";
-                                                if (item.I_fileID == null) { CamImg = ""; }
-                                                else if (item.I_fileID != null) { imgCount = imgCount + 1; }
-
-
-
-                                                NowRowNum = item.Rownum - BFRowNum;
-
-
-                                                if (((item.diff_dt >= 500 || (distance / item.diff_dt) <= 0.01) && item.diff_dt > 0) || item.Rownum == 1)
-                                                {
-                                                    if (item.Rownum != 1)
-                                                    {
-                                                    @:</ul>
-                                                @:</li>
-                                            }
-
-                                            @:<li class="sub-menu-T1">
-                                                @:<a href="#" class="sub-menu-T1-head" onclick="toShinbashi(@item.d_lat,@item.d_lon)">@item.dt.ToString("HH:mm")～ (@(NowRowNum))</a>
-                                                @:<ul class="sub-menu-T1-nav">
-                                                    BFRowNum = item.Rownum;
-                                                }
-                                                <li>
-                                                    <table border="1" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
-                                                        <tr>
-                                                            <td bgcolor="#FFFFFF" width="100" align="center">@item.dt.ToString("HH:mm:ss")</td>
-                                                            <td bgcolor="#FFFFFF" width="100"><font size="2">-X @item.d_a_x<br>-Y @item.d_a_y<br>-Z @item.d_a_z</font></td>
-                                                            <td bgcolor="#FFFFFF" align="center"><img border="0" width="18" height="28" src="@batImg" /></td>
-                                                            <td bgcolor="#FFFFFF" align="center" onclick="toShinbashi(@item.d_lat,@item.d_lon)"><img border="0" width="18" height="28" src="../img/MapMarker/4677.png" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td bgcolor="#FFFFFF" colspan="4">@item.diff_dt s</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td bgcolor="#FFFFFF" colspan="4">@(distance / item.diff_dt) m/s</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td bgcolor="#FFFFFF" colspan="4">@distance m</td>
-                                                        </tr>
-                                                    </table>
-                                                </li>
-                                            }
-                                        }
-                                        @if (ViewBag.retMapViweModel.DD.Count == 0)
-                                        {
-                                            @:<li class="sub-menu-T1">
-                                                @:<a href="#" class="sub-menu-T1-head">NoData</a>
-                                                @:<ul class="sub-menu-T1-nav">
-                                                }
-
-                                    </ul>
-                                </li>
-                            </ul>
-                            <li class="sub-menu-T1">
-                                <a href="#" class="sub-menu-T1-head">写真（@imgCount）</a>
-                                <ul class="sub-menu-T1-nav">
-
-
-                                    @{
-                                        NowRowNum = 0;
-                                        BFRowNum = 0;
-                                        BFdt = DateTime.Now;
-
-                                        foreach (var item in ViewBag.retMapViweModel.imgDD)
-                                        {
-
-                                            var distance = new GeoCoordinate(item.d_lat, item.d_lon).GetDistanceTo(new GeoCoordinate(item.bf_lat, item.bf_lon));
-                                            <!--写真アイコン-->
-                                            string CamImg = "";
-                                            if (item.I_fileID == null)
-                                            {
-                                                CamImg = "";
-                                            }
-                                            else if (item.I_fileID != null)
-                                            {
-                                                CamImg = "https://matu666.blob.core.windows.net/" + item.I_fileID;
-                                            }
-
-                                            NowRowNum = item.Rownum - BFRowNum;
-
-
-                                            if (((item.diff_dt >= 500 || (distance / item.diff_dt) <= 0.01) && item.diff_dt > 0) || item.Rownum == 1)
-                                            {
-                                                if (item.Rownum != 1)
-                                                {
-                                                @:</ul>
-                                            @:</li>
-                                        }
-
-                                        @:<li class="sub-menu-T1">
-                                            @:<a href="#" class="sub-menu-T1-head" onclick="toShinbashi(@item.d_lat,@item.d_lon)">@item.dt.ToString("HH:mm")～ (@(NowRowNum))</a>
-                                            @:<ul class="sub-menu-T1-nav">
-                                                BFRowNum = item.Rownum;
-                                            }
-                                            if (item.I_fileID != null)
-                                            {
-                                                <li>
-                                                    <table border="1" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
-                                                        <tr>
-                                                            <td bgcolor="#FFFFFF" width="100" align="center">@item.I_uploadDt.ToString("HH:mm:ss")</td>
-                                                            <!--<td bgcolor="#FFFFFF" align="center" onclick="toImage('@item.I_fileID',@item.d_lat,@item.d_lon)">
-                                <img border="0" width="200" height="200" src="@CamImg" /></td>-->
-                                                        </tr>
-                                                        <tr>
-                                                            <td bgcolor="#FFFFFF" width="100" align="center" onclick="toShinbashi(@item.d_lat,@item.d_lon)">
-                                                                <a href="#" class="pop">
-                                                                    <img src="@CamImg" style="width: 200px">
-                                                                </a>
-                                                            </td>
-
-                                                        </tr>
-                                                    </table>
-                                                </li>
-                                            }
-                                        }
-                                    }
-                                    @if (ViewBag.retMapViweModel.DD.Count == 0)
-                                    {
-                                        @:<li class="sub-menu-T1">
-                                            @:<a href="#" class="sub-menu-T1-head">NoData</a>
-                                            @:<ul class="sub-menu-T1-nav">
-                                            }
-
-
+                                    <li><button type="submit" style="width:100%" name="groupID" value="440103227845569">テストG</button></li>
+                                    <li><a class="dropdown-item" href="#">機能未実装</a></li>
+                                    <li> <a class="dropdown-item" href="#">バイク登録系</a></li>
                                 </ul>
-                            </li>
+                            </div>
+                        </li>
+                        <li>
+                            バイク
+                            <div class="dropdown">
+                                @{double RowNum = 0;
+                                    foreach (var item in ViewBag.retMapViweModel.userDD)
+                                    {
+                                        if (RowNum == 0)
+                                        {
+                                            @:<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="width:100%">
+                                                @item.bikeName
+                                            @:</button>
+                                            RowNum = RowNum + 1;
+                                        }
+                                        else
+                                        {
+                                            if (RowNum == 1)
+                                            {
+                                                @:<div class="dropdown-menu" aria-labelledby="dropdown1" style="z-index:9999;width:100%">
+                                                }
+                                                <button type="submit" style="width:100%" name="IMSI" value="@item.imsi">@item.bikeName</button>
+                                                RowNum = RowNum + 1;
+                                            }
+                                        }
+                                }
+                                @{if (RowNum > 1)
+                                    {
+                                    @:</div>
+                                }
+                                }
 
-                            <!--
+
+                            </div>
+                        </li>
+
+                        <li>
+                            IMSI(仮置き)
+                            <div class="dropdown">
+                                <button type="button" id="dropdown1" style="width:100%"
+                                        class="btn btn-secondary dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                    @ViewBag.retMapViweModel.IMSI
+                                </button>
+                                <button type="button" id="dropdown1" style="width:100%"
+                                        class="btn btn-secondary dropdown-toggle"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                    440103244018029
+                                </button>
+                                <input type="hidden" name="afIMSI" value="@ViewBag.retMapViweModel.IMSI">
+
+                            </div>
+                        </li>
+
+                        <li><br></li>
+
+                        <li class="sub-menu-T1">
+                            <a href="#" class="sub-menu-T1-head">移動履歴 (@ViewBag.retMapViweModel.DD.Count)</a>
+                            <ul class="sub-menu-T1-nav">
+
+                                @{double NowRowNum = 0;
+                                    double BFRowNum = 0;
+                                    double imgCount = 0;
+                                    DateTime BFdt = DateTime.Now;
+
+                                    foreach (var item in ViewBag.retMapViweModel.DD)
+                                    {
+
+//                                        var distance = new GeoCoordinate(item.d_lat, item.d_lon).GetDistanceTo(new GeoCoordinate(item.bf_lat, item.bf_lon));
+                                        var distance = 0;
+                                        <!--バッテリーアイコン-->
+                                        string batImg = "";
+                                        if (item.d_bat == -1) { batImg = "../img/bat/Bat09.png"; }
+                                        else if (item.d_bat == 1) { batImg = "../img/bat/Bat01.png"; }
+                                        else if (item.d_bat == 2) { batImg = "../img/bat/Bat02.png"; }
+                                        else if (item.d_bat == 3) { batImg = "../img/bat/Bat03.png"; }
+                                        <!--写真アイコン-->
+                                        //string CamImg = "";
+                                        //if (item.I_fileID == null) { CamImg = ""; }
+                                        //else if (item.I_fileID != null) { CamImg = "../img/453_ca_h.png"; }
+                                        <!--写真数-->
+                                        if (item.I_fileID == null) { string CamImg = ""; }
+                                        else if (item.I_fileID != null) { imgCount = imgCount + 1; }
+
+
+
+                                        NowRowNum = item.Rownum - BFRowNum;
+
+
+                                        if (((item.diff_dt >= 500 || (distance / item.diff_dt) <= 0.01) && item.diff_dt > 0) || item.Rownum == 1)
+                                        {
+                                            if (item.Rownum != 1)
+                                            {
+                                            @:</ul>
+                                        @:</li>
+                                    }
+
+                                    @:<li class="sub-menu-T1">
+                                        @:<a href="#" class="sub-menu-T1-head" onclick="toShinbashi(@item.d_lat,@item.d_lon)">@item.dt.ToString("HH:mm")～ (@(NowRowNum))</a>
+                                        @:<ul class="sub-menu-T1-nav">
+                                            BFRowNum = item.Rownum;
+                                        }
+                                        <li>
+                                            <table border="1" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF" width="100" align="center">@item.dt.ToString("HH:mm:ss")</td>
+                                                    <td bgcolor="#FFFFFF" width="100"><font size="2">-X @item.d_a_x<br>-Y @item.d_a_y<br>-Z @item.d_a_z</font></td>
+                                                    <td bgcolor="#FFFFFF" align="center"><img border="0" width="18" height="28" src="@batImg" /></td>
+                                                    <td bgcolor="#FFFFFF" align="center" onclick="toShinbashi(@item.d_lat,@item.d_lon)"><img border="0" width="18" height="28" src="../img/MapMarker/4677.png" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF" colspan="4">@item.diff_dt s</td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF" colspan="4">@(distance / item.diff_dt) m/s</td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF" colspan="4">@distance m</td>
+                                                </tr>
+                                            </table>
+                                        </li>
+                                    }
+                                }
+                                @if (ViewBag.retMapViweModel.DD.Count == 0)
+                                {
+                                    @:<li class="sub-menu-T1">
+                                        @:<a href="#" class="sub-menu-T1-head">NoData</a>
+                                        @:<ul class="sub-menu-T1-nav">
+                                        }
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <li class="sub-menu-T1">
+                        <a href="#" class="sub-menu-T1-head">写真（@imgCount）</a>
+                        <ul class="sub-menu-T1-nav">
+
+
+                            @{
+                                NowRowNum = 0;
+                                BFRowNum = 0;
+                                BFdt = DateTime.Now;
+
+                                foreach (var item in ViewBag.retMapViweModel.imgDD)
+                                {
+
+                                    var distance = 0;
+                                    // var distance = new GeoCoordinate(item.d_lat, item.d_lon).GetDistanceTo(new GeoCoordinate(item.bf_lat, item.bf_lon));
+                                    <!--写真アイコン-->
+                                    string CamImg = "";
+                                    if (item.I_fileID == null)
+                                    {
+                                        CamImg = "";
+                                    }
+                                    else if (item.I_fileID != null)
+                                    {
+                                        CamImg = "https://matu666.blob.core.windows.net/" + item.I_fileID;
+                                    }
+
+                                    NowRowNum = item.Rownum - BFRowNum;
+
+
+                                    if (((item.diff_dt >= 500 || (distance / item.diff_dt) <= 0.01) && item.diff_dt > 0) || item.Rownum == 1)
+                                    {
+                                        if (item.Rownum != 1)
+                                        {
+                                        @:</ul>
+                                    @:</li>
+                                }
+
+                                @:<li class="sub-menu-T1">
+                                    @:<a href="#" class="sub-menu-T1-head" onclick="toShinbashi(@item.d_lat,@item.d_lon)">@item.dt.ToString("HH:mm")～ (@(NowRowNum))</a>
+                                    @:<ul class="sub-menu-T1-nav">
+                                        BFRowNum = item.Rownum;
+                                    }
+                                    if (item.I_fileID != null)
+                                    {
+                                        <li>
+                                            <table border="1" width="100%" cellspacing="0" cellpadding="5" bordercolor="#333333">
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF" width="100" align="center">@item.I_uploadDt.ToString("HH:mm:ss")</td>
+                                                    <!--<td bgcolor="#FFFFFF" align="center" onclick="toImage('@item.I_fileID',@item.d_lat,@item.d_lon)">
+                                <img border="0" width="200" height="200" src="@CamImg" /></td>-->
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF" width="100" align="center" onclick="toShinbashi(@item.d_lat,@item.d_lon)">
+                                                        <a href="#" class="pop">
+                                                            <img src="@CamImg" style="width: 200px">
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                            </table>
+                                        </li>
+                                    }
+                                }
+                            }
+                            @if (ViewBag.retMapViweModel.DD.Count == 0)
+                            {
+                                @:<li class="sub-menu-T1">
+                                    @:<a href="#" class="sub-menu-T1-head">NoData</a>
+                                    @:<ul class="sub-menu-T1-nav">
+                                    }
+
+
+                        </ul>
+                    </li>
+
+                    <!--
                     <li class="sub-menu-T1">
                         @using (Html.BeginForm("Upload", "Map", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
@@ -922,60 +989,63 @@ else
 
 -->
 </nav>
-            </div>
+        </div>
 
 
 
 
 
-            <!-- /#container -->
-            <div id="container">
-                <header id="global-head">
+        <!-- /#container -->
+        <div id="container">
+            <header id="global-head">
 
-                    <nav class="navbar navbar-dark bg-dark" id="BikeSeachMenu">
-                        <div class="btn-group ml-auto mr-auto">
+                <nav class="navbar navbar-dark bg-dark" id="BikeSeachMenu">
 
 
-                            @Html.EditorFor(model => model.SearchCndDate, new
-                            {htmlAttributes = new
-                                {
-                                    Value = @ViewBag.retMapViweModel.SearchCndDate.ToString("yyyy-MM-dd")
-                                    ,onchange = "document.getElementById('Mapform').submit()"
-                                }
-                            })
-                        </div>
-                    </nav>
-                </header>
+                    <input type="date" id="SearchCndDate" name="SearchCndDate"
+                           value=@ViewBag.retMapViweModel.SearchCndDate.ToString("yyyy-MM-dd")
+                           min="2018-01-01" max=@ViewBag.retMapViweModel.SearchCndDateED.ToString("yyyy-MM-dd") results>
 
-                <!-- Googleマップ-->
-                <main id="main">
-                    <section class="inner">
-                        <!--***********************-->
-                        <!--MAP-->
-                        <div id="map">
+                    <input type="date" id="SearchCndDateED" name="SearchCndDateED"
+                           value=@ViewBag.retMapViweModel.SearchCndDateED.ToString("yyyy-MM-dd")
+                           min=@ViewBag.retMapViweModel.SearchCndDate.ToString("yyyy-MM-dd") results>
+                    <a href="#" onclick="document.getElementById('Mapform').submit()">　更新　</a>
+                </nav>
 
-                            <!-- これはGoogleマップを含むdivです
+
+
+
+            </header>
+
+            <!-- Googleマップ-->
+            <main id="main">
+                <section class="inner">
+                    <!--***********************-->
+                    <!--MAP-->
+                    <div id="map">
+
+                        <!-- これはGoogleマップを含むdivです
                 <div id="map_canvas"></div>
                     -->
-                            <div id="map_canvas"></div>
+                        <div id="map_canvas"></div>
 
-                        </div>
+                    </div>
 
 
-                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqUX0nsxQXyYhFHaieV-Py8EXQ9mh-KJM">
-                        </script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqUX0nsxQXyYhFHaieV-Py8EXQ9mh-KJM">
+                    </script>
 
-                        <!--gmap
+                    <!--gmap
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqUX0nsxQXyYhFHaieV-Py8EXQ9mh-KJM"></script>
             -->
-                        <!--***********************-->
-                    </section>
+                    <!--***********************-->
+                </section>
 
-                </main>
-            </div>
-            </div>
+            </main>
+        </div>
+        </div>
 
-            </body>
+    </body>
 
         }
     }

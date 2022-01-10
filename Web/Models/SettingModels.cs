@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using ThingsLine.Models;
+using ThingsLine.Modules;
 
 namespace thingslineWeb.Models
 {
@@ -9,48 +11,18 @@ namespace thingslineWeb.Models
 
     public class SettingUserDataModel
     {
-        [Display(Name = "ユーザーID")]
-        public string UserID { get; set; }
 
-        [Display(Name = "ユーザー")]
-        public IList<SettingUserInfoModel> UserInfo { get; set; }
+        public U_Profile LoginUserInfo { get; set; }
 
-        [Display(Name = "バイク")]
-        public IEnumerable<SettingBikeInfoModel> BiKeInfo { get; set; }
+        public IList<SettingBikeInfoModel> BiKeInfo { get; set; }
 
-        [Display(Name = "デバイス")]
-    public IEnumerable<SettingDeviceInfoModel> DeviceInfo { get; set; }
+        public IList<SettingDeviceInfoModel> DeviceInfo { get; set; }
 
+        public IList<MNameList> MNameList_UserRole { get; set; }
+
+        public string infoMSG { get; set; }
     }
 
-    //-----------------------------
-    //ユーザー情報総合
-    public class SettingUserInfoModel
-    {
-        [Display(Name = "ユーザーID")]
-        public string userID { get; set; }
-
-        [Display(Name = "苗字")]
-        [DataType(DataType.Text)]
-        [StringLength(10, ErrorMessage = "{0}は{1}文字以内で入力して下さい。")]
-        public string name1 { get; set; }
-
-        [Display(Name = "名前")]
-        public string name2 { get; set; }
-
-        [Display(Name = "ニックネーム")]
-        public string nickname { get; set; }
-
-        [Display(Name = "E-Mail")]
-        public string Email { get; set; }
-
-        [Display(Name = "権限")]
-        public string role { get; set; }
-
-        [Display(Name = "利用状況")]
-        public string stopFLG { get; set; }
-
-    }
 
     //-----------------------------
     //バイク情報(LIST

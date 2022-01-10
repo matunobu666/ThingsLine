@@ -1,48 +1,24 @@
 ﻿using System;
-using System.IO;
-using System.Text;
-using System.Data.SqlClient;
-
-
-using thingslineWeb.Modules;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Reflection;
 using System.Collections.Generic;
-using System.Data;
-using Newtonsoft.Json.Linq;
-using System.Configuration;
-
-using System.Globalization;
-using System.Xml.Serialization;
-using System.Linq;
-using System.Net.Http.Json;
-using thingslineWeb.Models;
-using module;
+using System.Text;
+using ThingsLine.Models;
+using ThingsLine.Modules;
 
 namespace thingslineWeb.Modules
 {
     public class mdlSetting
     {
-
-
-        public SettingUserDataModel getSettingUserInfo(SettingUserDataModel getSettingUserDataModel)
+        public U_Profile GetUserInfo(String getUserID)
         {
-            module.mdlSQLServer mCommon = new module.mdlSQLServer();
-
+            /*------------------------------*/
+            //SQL関連初期処理
+            modSQLServer mCommon = new modSQLServer();
             StringBuilder strSql = new StringBuilder();
-            SettingUserDataModel retSettingUserDataModel = new SettingUserDataModel();
 
-
-
-            /*------------------------------*/
-            /*　Keyデータチェック*/
-            //retMapViweModel.IMSI
-            retSettingUserDataModel.UserID = getSettingUserDataModel.UserID;
+            U_Profile retUserInfoModel = new U_Profile();
 
             /*------------------------------*/
-            /*　MAP用データリスト*/
-            /*------------------------------*/
+            /*　SettingUserDataModel*/
             /*------------------------------*/
             //retMapViweModel
             strSql.Clear();
@@ -57,20 +33,26 @@ namespace thingslineWeb.Modules
                      );
             strSql.Append(" FROM [dbo].[U_Profile]");
             strSql.Append(" Where ");
-            strSql.Append(" userID = '" + getSettingUserDataModel.UserID + "' ");
+            strSql.Append(" userID = '" + getUserID + "' ");
 
-            List<SettingUserInfoModel> retSUIModel = mCommon.GetSQL<SettingUserInfoModel>(strSql);
-            if (retSUIModel.Count > 0)
+            List<U_Profile> retSUDM = mCommon.GetSQL<U_Profile>(strSql);
+
+            if (retSUDM.Count == 1)
             {
-                retSettingUserDataModel.UserInfo = retSUIModel;
+                retUserInfoModel = retSUDM[0];
             }
             else
             {
-                retSettingUserDataModel.UserInfo = new List<SettingUserInfoModel>();
+                //ほんとはエラー？
+                retUserInfoModel = null;
             }
 
             //RET
-            return retSettingUserDataModel;
+            return retUserInfoModel;
         }
+
+
+
+
     }
 }

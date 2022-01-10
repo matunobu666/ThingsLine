@@ -1,0 +1,712 @@
+﻿
+@using Microsoft.AspNet.Identity
+@using System.Device.Location
+@model thingslineWeb.Models.SettingUserDataModel
+
+@if (Request.IsAuthenticated == false)
+{
+    //-----------------------------
+    //ログインしていない場合の処理
+    <meta http-equiv="refresh" content="0;URL=../Account/Login">
+}
+else
+{
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+    @section scripts {
+
+
+
+
+        <style type="text/css">
+            /***********************/
+            /* ポップアップ*/
+            #modal-content {
+                top: 0;
+                width: 100%;
+            }
+
+            .modal-img_footer {
+                /* //表示予定のテキストとボタンを中央揃え padding: .5em;
+                */ text-align: left;
+            }
+
+            /***********************/
+            /* MAP*/
+            #map_canvas img {
+                max-width: none;
+                padding: 0;
+            }
+
+            div#map_canvas {
+                position: relative;
+                width: 100%;
+                top: 0;
+            }
+
+            div#map {
+                width: 100%;
+                position: relative;
+                margin: auto;
+            }
+
+            .infoDiv {
+                height: 200px;
+                width: 300px;
+                -webkit-user-select: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            /***********************/
+
+
+            /***********************/
+            /* MAP*/
+
+            .date-edit {
+                position: relative;
+            }
+
+            input[type="date"] {
+                padding: 5px;
+                text-align: center;
+            }
+            /***********************/
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+                *, *:before, *:after {
+                    -webkit-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    -moz-box-sizing: border-box;
+                    /*-ms-box-sizing: border-box;*/
+                    box-sizing: border-box;
+                }
+
+            html, body {
+                height: 100%;
+            }
+
+            body {
+                font-size: 14px;
+                font-family: 'Lato','Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', Meiryo, メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+                background: #eee;
+            }
+
+
+            #container {
+                background: #eee;
+                margin-left: 260px;
+                position: relative;
+                -moz-transition: margin-left .25s linear;
+                -webkit-transition: margin-left .25s linear;
+                transition: margin-left .25s linear;
+            }
+
+            #main {
+                background: #eee;
+                padding-top: 0px;
+                min-height: 100%;
+                width: 100%;
+            }
+
+                #main p {
+                    margin-bottom: 1em;
+                    line-height: 1.9;
+                }
+
+                #main .inner {
+                    position: relative;
+                    top: 70px;
+                }
+
+            /* main-visual */
+            #main-visual {
+                background: #64CE80;
+                background: -webkit-linear-gradient(-45deg, #64CE80, #C68BC4);
+                background: -moz-linear-gradient(-45deg, #64CE80, #C68BC4);
+                /*background: -ms-linear-gradient(-45deg, #64CE80, #C68BC4);*/
+                background: -o-linear-gradient(-45deg, #64CE80, #C68BC4);
+                background: linear-gradient(-45deg, #64CE80, #C68BC4);
+                height: 400px;
+                display: flex;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
+
+                #main-visual h2 {
+                    font-size: 21px;
+                    color: #fff;
+                }
+
+            h3 {
+                font-size: 131%;
+                margin-bottom: .7em;
+            }
+
+            #copyright a {
+                color: #666;
+                text-decoration: none;
+            }
+
+                #copyright a:hover {
+                    text-decoration: underline;
+                }
+
+            #global-head {
+                position: fixed;
+                color: #033560;
+                width: 100%;
+                padding: 0px 0px;
+                background: #fff;
+                display: -webkit-flex;
+                display: flex;
+            }
+
+            #sidebar-T1 {
+                padding-top: 40px;
+                width: 260px;
+                height: 100%;
+                position: fixed;
+                color: #afc3f2;
+                background: #033560;
+            }
+
+            #BikeSeachMenu {
+                -webkit-transition: .35s ease-in-out;
+                -moz-transition: .35s ease-in-out;
+                transition: .35s ease-in-out;
+            }
+
+            #global-nav ul {
+                list-style: none;
+                margin-left: 0;
+            }
+
+            #global-nav > ul > li {
+                position: relative;
+            }
+
+            #global-nav a {
+                color: #aeb4cb;
+                text-decoration: none;
+                display: block;
+                padding: 15px;
+                -moz-transition: color .3s linear;
+                -webkit-transition: color .3s linear;
+                transition: color .3s linear;
+            }
+
+                #global-nav .sub-menu-T1.is-active > a,
+                #global-nav a:hover {
+                    color: #fff;
+                    /*background: #fff;*/
+                }
+
+
+            /* sub-menu-T1 icon */
+            #global-nav .sub-menu-T1-head {
+                position: relative;
+            }
+
+                #global-nav .sub-menu-T1-head:after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    right: 18px;
+                    margin: auto;
+                    vertical-align: middle;
+                    width: 8px;
+                    height: 8px;
+                    border-top: 1px solid #aeb4cb;
+                    border-right: 1px solid #aeb4cb;
+                    -moz-transform: rotate(45deg);
+                    -webkit-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                    -webkit-transition: .25s ease-in-out;
+                    -moz-transition: .25s ease-in-out;
+                    transition: .25s ease-in-out;
+                }
+
+                #global-nav .sub-menu-T1.is-active > a:after,
+                #global-nav .sub-menu-T1-head:hover:after {
+                    border-color: #fff;
+                }
+
+            #global-nav .is-active .sub-menu-T1-head:after {
+                -moz-transform: rotate(135deg);
+                -webkit-transform: rotate(135deg);
+                transform: rotate(135deg);
+            }
+            /* sub-menu-T1 */
+            #global-nav .sub-menu-T1-nav {
+                background: #032f55;
+                display: none;
+                padding: 10px 0;
+                /*-moz-transition: all .4s ease;*/
+                /*-webkit-transition: all .4s ease;*/
+                /*transition: all .4s ease;*/
+            }
+
+
+                #global-nav .sub-menu-T1-nav a {
+                    color: #aeb4cb;
+                    padding: 8px 15px;
+                }
+
+                    #global-nav .sub-menu-T1-nav a:hover {
+                        color: #fff;
+                    }
+
+
+            /* nav-toggle */
+            #nav-toggle {
+                position: fixed;
+                top: 70px;
+                left: 15px;
+                height: 32px;
+            }
+
+                #nav-toggle > div {
+                    position: relative;
+                    width: 32px;
+                }
+
+                #nav-toggle span {
+                    width: 100%;
+                    height: 2px;
+                    left: 0;
+                    display: block;
+                    background: #fff;
+                    position: absolute;
+                    -webkit-transition: .35s ease-in-out;
+                    -moz-transition: .35s ease-in-out;
+                    transition: .35s ease-in-out;
+                }
+
+                    /* #nav-toggle closeSM */
+                    #nav-toggle span:nth-child(1) {
+                        top: 0;
+                        /*
+                -webkit-transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                transform: rotate(45deg);
+                */
+                    }
+
+                    #nav-toggle span:nth-child(2) {
+                        top: 11px;
+                        /*
+                width: 0;
+                left: 50%;
+                */
+                    }
+
+                    #nav-toggle span:nth-child(3) {
+                        top: 22px;
+                        /*
+                -webkit-transform: rotate(-45deg);
+                -moz-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+                */
+                    }
+
+            /*
+            .closeSM #nav-toggle span:nth-child(1) {
+                top: 0;
+                -webkit-transform: rotate(0);
+                -moz-transform: rotate(0);
+                transform: rotate(0);
+            }
+            .closeSM #nav-toggle span:nth-child(2) {
+                width: 100%;
+                left: 0;
+            }
+            .closeSM #nav-toggle span:nth-child(3) {
+                top: 22px;
+                -webkit-transform: rotate(0);
+                -moz-transform: rotate(0);
+                transform: rotate(0);
+            }
+            */
+
+
+            /* z-index */
+            #nav-toggle {
+                z-index: 1000;
+            }
+
+            #container {
+                z-index: 900;
+            }
+
+            /* closeSM */
+            .closeSM #container {
+                margin-left: 0px;
+            }
+
+            .closeSM #BikeSeachMenu {
+                margin-left: 70px;
+            }
+
+            .closeSM #nav-toggle span {
+                background: #033560;
+            }
+
+            @@media screen and (max-width: 900px) {
+                #container {
+                    margin-left: 0px;
+                }
+
+                #BikeSeachMenu {
+                    margin-left: 70px;
+                }
+
+                #nav-toggle span {
+                    background: #033560;
+                }
+
+                .closeSM #nav-toggle span {
+                    background: #fff;
+                }
+
+                #sidebar-T1 {
+                    left: -260px;
+                    z-index: 910;
+                    -webkit-transition: .35s ease-in-out;
+                    -moz-transition: .35s ease-in-out;
+                    transition: .35s ease-in-out;
+                }
+
+                .closeSM #sidebar-T1 {
+                    left: 0px;
+                }
+            }
+
+            @@media screen and (max-width: 400px) {
+            }
+        </style>
+    }
+    <link rel="stylesheet" type="text/css" href="~/Content/SelectBOX001.css">
+    <!-- メイン -->
+    using (Html.BeginForm("index", "Setting", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
+     new { @class = "form-horizontal", role = "form", id = "Settingform", enctype = "multipart/form-data" }))
+    {
+
+        <!--***********************-->
+        <!--navbar MENU-->
+        <!--***********************-->
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.8.1/js/perfect-scrollbar.jquery.min.js"></script>
+        <script type="text/javascript">
+            (function ($) {
+                //ポップアップウィンドウ
+                $(function () {
+                    $('.pop').on('click', function () {
+                        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+
+                        var w1 = $(window).width();
+                        var h1 = $(window).height();
+
+                        if (w1 > 1200) {
+                            $('.imagepreview').attr('width', 1060);
+                        } else if (w1 > 1000) {
+                            $('.imagepreview').attr('width', 760);
+                        } else if (w1 > 500) {
+                            $('.imagepreview').attr('width', 460);
+                        } else if (w1 < 500) {
+                            $('.imagepreview').attr('width', w1 - 60);
+                        }
+                        $('#imagemodal').modal('show');
+                        var imgw1 = $('.imagepreview').attr('width');
+                        var imgh1 = $('.imagepreview').attr('height');
+                        $('.window_size').text("現在のウィンドウサイズは、" + w1 + "-" + h1 + "-" + imgw1 + "-" + imgh1 + "です。");
+
+                    });
+
+                    // サイドサブメニューアコーディオン
+                    $('.sub-menu-T1-head').on('click', function () {
+                        var $subNav = $(this).next('.sub-menu-T1-nav');
+                        if ($subNav.is(':visible')) {
+                            $subNav.velocity('slideUp', { duration: 200 });
+                            $(this).parent('li').removeClass('is-active');
+                        }
+                        else {
+                            $subNav.velocity('slideDown', { duration: 200 });
+                            $(this).parent('li').addClass('is-active');
+                        }
+                        return false;
+                    });
+
+                    $('.scroll').perfectScrollbar();
+
+                    // サイドサブメニューアコーディオン
+                    $('#nav-toggle').on('click', function () {
+                        $('body').toggleClass("closeSM");
+                    });
+
+
+                });
+            })(jQuery);
+        </script>
+
+        <!--ウインドウサイズ調整-->
+        <script type="text/javascript">
+
+            setTimeout(function () {
+                location.reload();
+            }, 600000);
+
+            const myFunc = () => {
+                let wh = window.innerHeight - 130;
+                let elem2 = document.getElementById("map_canvas");
+                elem2.style.height = wh + "px";
+
+                wh = window.innerHeight - 60;
+                let elem = document.getElementById("sidebar-T1");
+                elem.style.height = wh + "px";
+
+
+
+
+            };
+
+            window.addEventListener("load", myFunc, false);
+            window.addEventListener("resize", myFunc, false);
+
+
+
+            //<!--サイドメニュー-->
+            function toShinbashi(pLat, pLng) {
+                //移動
+                map.panTo(new google.maps.LatLng(pLat, pLng));
+                /*
+                 *
+                                //ピン配置
+                                var latlng = new google.maps.LatLng(pLat, pLng);
+                                var marker = {
+                                    position: latlng,
+                                    map: map
+                                };
+                                nowMarker = new google.maps.Marker(marker);
+                                */
+
+            }
+
+            function toImage(ImageName, pLat, pLng) {
+                //移動処理
+                map.panTo(new google.maps.LatLng(pLat, pLng));
+
+                var latlng = new google.maps.LatLng(pLat, pLng);
+                var marker = {
+                    position: latlng,
+                    map: map
+                };
+                var marker = new google.maps.Marker(marker);
+
+                window.open('https://matu666.blob.core.windows.net/imagetmp/' + ImageName, ImageName);
+
+
+
+            }
+
+        </script>
+
+
+        <!-- Modal -->
+
+
+        <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered  modal-xl" role="document" id="imagemodaldialog">
+                <div class="modal-content">
+                    <div class="modal-body" id="imagemodalcontent">
+                        <div class="window_size"></div>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <img src="" class="imagepreview">
+                    </div>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>　[削除]　[タイトル変更]
+                </div>
+                <div class="modal-img_footer">
+
+                </div>
+            </div>
+        </div>
+
+        <body>
+
+            <!-- /#MainBody -->
+            <div id="MainBody">
+                <div id="nav-toggle">
+                    <div>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <div id="sidebar-T1" style="overflow-y:scroll">
+                    <nav id="global-nav">
+                        <ul>
+                            <li><br></li>
+                            <li>
+                                グループ
+                                <div class="dropdown">
+                                    <button type="button" id="dropdown1" style="width:100%"
+                                            class="btn btn-secondary dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">
+                                        個人
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown1" style="z-index:9999;width:100%">
+
+                                        <button type="submit" style="width:100%" name="groupID" value="440103227845569">テストG</button>
+                                        <a class="dropdown-item" href="#">機能未実装</a>
+                                        <a class="dropdown-item" href="#">バイク登録系</a>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                バイク
+                                <div class="dropdown">
+                                </div>
+                            </li>
+
+                            <li>
+                                IMSI(仮置き)
+                                <div class="dropdown">
+                                    <button type="button" id="dropdown1" style="width:100%"
+                                            class="btn btn-secondary dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">
+                                        gfdgd
+                                    </button>
+
+
+
+                                </div>
+                            </li>
+
+                            <!--
+                                                <li class="sub-menu-T1">
+                                                    @using (Html.BeginForm("Upload", "Map", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                    {
+                                                        <input type="file" name="uploadFile" />
+                                                        <br>
+                                                        <input type="submit" value="アップロード" />
+                                                    }
+                                                </li>
+
+
+                            -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div id="container">
+                <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+                    <tr>
+                        <td align="right" nowrap>login_userID</td>
+                        <td>@ViewBag.retSettingUserDataModel.LoginUserInfo.userID</td>
+
+                    </tr>
+
+                    @foreach (var item in ViewBag.retSettingUserDataModel.UserInfo)
+                    {
+                        <tr>
+                            <td align="right" nowrap>userID</td>
+                            <td align="right" nowrap>@item.userID</td>
+                            <td align="left" nowrap>@Html.HiddenFor(model => model.UserInfo[0].userID)</td>
+                        </tr>
+                        <tr>
+                            <td align="right" nowrap>@Html.DisplayNameFor(model => model.UserInfo[0].name1)</td>
+                            <td align="right" nowrap>@Html.EditorFor(model => model.UserInfo[0].name1, new { htmlAttributes = new { @class = "form-control", @Value = item.name1 } })</td>
+                        </tr>
+                        <tr>
+                            <td align="right" nowrap>@Html.DisplayNameFor(model => model.UserInfo[0].name2)</td>
+                            <td align="right" nowrap>@Html.EditorFor(model => model.UserInfo[0].name2, new { htmlAttributes = new { @class = "form-control", @Value = item.name2 } })</td>
+                        </tr>
+                        <tr>
+                            <td align="right" nowrap>@Html.DisplayNameFor(model => model.UserInfo[0].nickname)</td>
+                            <td align="right" nowrap>@Html.EditorFor(model => model.UserInfo[0].nickname, new { htmlAttributes = new { @class = "form-control", @Value = item.nickname } })</td>
+                        </tr>
+                        <tr>
+                            <td align="right" nowrap>@Html.DisplayNameFor(model => model.UserInfo[0].Email)</td>
+                            <td align="right" nowrap>@Html.EditorFor(model => model.UserInfo[0].Email, new { htmlAttributes = new { @class = "form-control", @Value = item.Email } })</td>
+                        </tr>
+                        <tr>
+                            <td align="right" nowrap>@Html.DisplayNameFor(model => model.UserInfo[0].role)</td>
+                        </tr>
+                        <tr>
+                            <td align="right" nowrap>@Html.DisplayNameFor(model => model.UserInfo[0].stopFLG)</td>
+                            <td align="right" nowrap>@Html.EditorFor(model => model.UserInfo[0].stopFLG, new { htmlAttributes = new { @class = "form-control", @Value = item.stopFLG } })</td>
+                        </tr>
+                        <tr>
+                            <td align="right" nowrap>
+                                <select class="UserInfo[0].role" id="UserInfo[0].role" name="UserInfo[0].role">
+                                    @foreach (var itemMNameList_UserRole in ViewBag.retSettingUserDataModel.MNameList_UserRole)
+                                    {
+
+                                        if (item.role.ToString() == itemMNameList_UserRole.Code)
+                                        {
+                                            <option value="@itemMNameList_UserRole.Code" selected>@itemMNameList_UserRole.Codetext</option>
+
+                                        }
+                                        else
+                                        {
+
+                                            <option value="@itemMNameList_UserRole.Code"> @itemMNameList_UserRole.Codetext </option>
+
+                                        }
+
+
+
+
+                                    }
+                                </select>
+
+                            </td>
+                        </tr>
+
+                    }
+                    <tr>
+                        <td colspan="2" align="center" nowrap>
+                            <input type="submit" value="更新" />
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+
+        </body>
+
+
+    }
+
+}

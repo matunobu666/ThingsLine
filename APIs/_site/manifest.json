@@ -1,0 +1,654 @@
+{
+  "homepages": [],
+  "source_base_path": "F:/PG/APIs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.SoraKBeacon.Ctx.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.SoraKBeacon.Ctx.html",
+          "hash": "6c7iEqqY7Gw/qwEXDnOw/YOsRLvIUmtoVuT+jaal4bY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.SoraKBeacon.rcvBodyData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.SoraKBeacon.rcvBodyData.html",
+          "hash": "6hlVVcfQ96+LjXVylUEhO6/uNhoM4uBhBEXsF+IoNpE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.SoraKBeacon.rcvJWTdata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.SoraKBeacon.rcvJWTdata.html",
+          "hash": "S4h0Q0VfcOq+IpC3yJOJuQG4F4GUJYXTzPe1+O7i5SI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.SoraKBeacon.rcvJWTdataH.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.SoraKBeacon.rcvJWTdataH.html",
+          "hash": "wHiHOHUPTkTGMQ9rIwlyv5n0sbFwtmXEaK+1YA9sRzc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.SoraKBeacon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.SoraKBeacon.html",
+          "hash": "rICXF9w67tlwnhHhV0LrtgZz2JIsGp2eT5jz0qDEwmU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.SoraKGPS.Ctx.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.SoraKGPS.Ctx.html",
+          "hash": "bjw024J3OIpNPReyfBtsTGIChRXaNpyjZrHOtRDk3UQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.SoraKGPS.rcvBodyData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.SoraKGPS.rcvBodyData.html",
+          "hash": "AfjrHMmHyNxmiwNVqgZZD76fjrEFy0Wz6SJJvnL+Pkc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.SoraKGPS.rcvJWTdata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.SoraKGPS.rcvJWTdata.html",
+          "hash": "YNXX6ScCW0NUM1v/EfzVEdGnxHt2ZOGfiI/c8uejW1o="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.SoraKGPS.rcvJWTdataH.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.SoraKGPS.rcvJWTdataH.html",
+          "hash": "xA4mf9q6EYM02JyABei4u48e92Omp5k5DD2zttG/iTo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.SoraKGPS.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.SoraKGPS.html",
+          "hash": "ra2zzKfwEPqhsJ3V2bkFMpKnZbSbuccu7NUfAKUbumw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Device.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Device.html",
+          "hash": "SYok8j7gaZhVWpYVVNPxqoYEwvz1PvqMsT/zcxObkaw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Events.MainTimer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Events.MainTimer.html",
+          "hash": "GlqFbeBjeH2tx9395Lvw41HO7kvL50R8CgLU9fCDJP8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Events.Timer10.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Events.Timer10.html",
+          "hash": "GFwZYZRiZ+8ft12Lkd/gsyZezcnqrIbi2ABnPVDFSc8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Events.html",
+          "hash": "EY9bZFy1lXDis9OIV8UQLZbBkGHrIOAkBX+SiW01PjQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.LINEAPIs.LinImg000.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.LINEAPIs.LinImg000.html",
+          "hash": "j9Vh1eGheDQl60Uw/cFYJAKrlxeZwiuH4PCvWmFPSQE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.LINEAPIs.LinMsgLocMSG000.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.LINEAPIs.LinMsgLocMSG000.html",
+          "hash": "llpkKNjpSbwWCRemIncCZdzJwxWAjZbPysGU1G5M0EA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.LINEAPIs.LinMsgQReplyMSG000.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.LINEAPIs.LinMsgQReplyMSG000.html",
+          "hash": "cfjsxShJru2k18bo0SgKJGIX0IDuUanyK2WT8J5WQ88="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.LINEAPIs.LinMsgTextMSG000.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.LINEAPIs.LinMsgTextMSG000.html",
+          "hash": "G04mSb3GyP7WGdcv1KSvViYP81R7RQkhiLfXyHIKikc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.LINEAPIs.MessageEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.LINEAPIs.MessageEvent.html",
+          "hash": "J02GdWjpdInjYIiQrMEFPi6AooTVODw6XkAyXCnDVQg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.LINEAPIs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.LINEAPIs.html",
+          "hash": "qCrgNrOr3UgoaTA4Xyk5/wLLQbogRPobdtZtYXUK0Tg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.Event.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.Event.html",
+          "hash": "2EppfVxOAFrskdvUtznL2mvA/R5mnmPgaqIeUPNrbDc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.Joined.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.Joined.html",
+          "hash": "5Tj4+JBSrcUjtq4pTbICZcDtEB1o+HAtP8LppDbAa6s="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.LinImg000.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.LinImg000.html",
+          "hash": "Ky24IWMHcwb6OBXTAs6uZbrCC1RS1nlBHc7S+sFU+HQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.LinMsgQReplyMSG000.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.LinMsgQReplyMSG000.html",
+          "hash": "ezUdcnOwRY8NJw9xO37577m9LW6hJcTUCBuEAbrFN6o="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.LineTextPushObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.LineTextPushObject.html",
+          "hash": "0SJi7UIVAwNKFvyQZ65t5SfJft3RlEPJ8/T8Yl17OdI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.LineTextReplyObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.LineTextReplyObject.html",
+          "hash": "vmAcDJfXE5aliePYGJ8Od4AyEPxBTwlgbqqZuPzRfRA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.LineWebhookMessageObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.LineWebhookMessageObject.html",
+          "hash": "Y1jdAHw363eSnBzS9Q5Mq7cEQEBawL4bR0ah0zyKRfU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.Members.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.Members.html",
+          "hash": "lvbxAFLTVRP6C1QGnKG2a31vsPg26F9bRgtloA6bDUY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.Message.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.Message.html",
+          "hash": "VRac8UtLqRq/y5qxQq3k/VhFMY0B6BPTu34anMfzllU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.QRAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.QRAction.html",
+          "hash": "O/6/uOdZnK3mvTDx2QgtcsP03LoVrCXXZHA1sJ+jNRs="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.QRItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.QRItem.html",
+          "hash": "bU5/kNxWSzkxARoBCPI8Kau5ID1eQgN2hrR6H5J3BGY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.QRMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.QRMessage.html",
+          "hash": "cmRP6PXBunofFKZJjWlroL14nrMSnBeOjZePSjnYFCQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.QRQuickReply.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.QRQuickReply.html",
+          "hash": "kuGFSny73AuyGqUrMr/3cXjVL8ko9z/lkLuWHnoLDN0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.Source.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.Source.html",
+          "hash": "DAVc0XavG8Wlwbx3dAekYIhLURXouP5JQ279rroW8ok="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.baseData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.baseData.html",
+          "hash": "cFxFJkfLzEOBTDAab/4zYENrOxQ0o34oYNAX+BcoZlQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.contentProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.contentProvider.html",
+          "hash": "mVFx14ogzko7g2xonzE/OwU5Q0UEmqGSL5RHnqEc9yA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.mdlLineMsg.html",
+          "hash": "jtKFD8+NU5H2ti4sCP2XjzdIscWZEUIXbW9ij72kU90="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Models.html",
+          "hash": "rh+7weJbLhmDrdfcJm6wEcX5CzBo6GvmhbxldX69Svs="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Modules.modDeviceAPI.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Modules.modDeviceAPI.html",
+          "hash": "x0eYFjF3ZIEmRaFEG+WlOSWCOzE2yKX4mHlD8kkywo0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Modules.modLINEMsg.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Modules.modLINEMsg.html",
+          "hash": "jJ4qNRNvBJnT/pwKJohdonsBpjWkYadMHGf1qjQDt+w="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/ThingsLineAPIs.Modules.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/ThingsLineAPIs.Modules.html",
+          "hash": "ZZmuL2wxXXQitd/sHXUdDZdNT1SY+xelxnac67WWoOo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/imageAPI.imageRegistration.DD.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/imageAPI.imageRegistration.DD.html",
+          "hash": "QYQ41vrvXBoEqnDlfcCbjsnF/h0ecAuesKLNcNIkVSQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/imageAPI.imageRegistration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/imageAPI.imageRegistration.html",
+          "hash": "EEq3SpzB2+5D8+WiGDzZZVtfMHHM04KSzSiIFfPWNes="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/imageAPI.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/imageAPI.html",
+          "hash": "Dnh9WUNDUzqiGawBf9hX6oLbNXWdf4px9am5eItPXAc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "/HDH1+vC9onkKcZDBDI5P1mUT0ndg8asqGKjIKbAL5c="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "mu0awPeRUWbLNtw9+49FffFFV86akc78ktZg10jxJys="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "6kMeDx0skohUCUfmxOmdfWr6VHmbNHKf45XKFaKjDtk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "BlPxk5mtl2kgfcZUgkEguqiSAR/EUyUTT4EdebwkQvs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "x71F3gn8wla5/c2J9fIudOen1bjikw7RPjPvhUpq5cA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "WSuRrYiGwKKMbtdG9z8W9fXmLoCyTnGg9AxbPKLXm2Y="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 3
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 44,
+          "skipped_file_count": 44
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

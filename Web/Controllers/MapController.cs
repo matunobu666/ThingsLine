@@ -12,17 +12,23 @@ namespace thingslineWeb.Controllers
 
         public ActionResult Index()
         {
+            
+           
+            
+            
             mdlMap mMap = new mdlMap();
             MapViweModel getMapViweModel = new MapViweModel();
 
             //今日の日付をセット
             getMapViweModel.SearchCndDate = DateTime.Now;
+            getMapViweModel.SearchCndDateED = DateTime.Now;
             getMapViweModel.UserID = User.Identity.GetUserId();
 
 
             MapViweModel retMapViweModel = mMap.getMapData(getMapViweModel);
 
             retMapViweModel.SearchCndDate = DateTime.Now;
+            retMapViweModel.SearchCndDateED = DateTime.Now;
             ViewBag.retMapViweModel = retMapViweModel;
             //ViewBag.MapData = retMapViweModel.MapData;
 
@@ -48,6 +54,7 @@ namespace thingslineWeb.Controllers
 
             ViewBag.retMapViweModel = retMapViweModel;
             retMapViweModel.SearchCndDate = getMapViweModel.SearchCndDate;
+            retMapViweModel.SearchCndDateED = getMapViweModel.SearchCndDateED;
 
 
             return View();

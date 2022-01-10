@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Collections.Generic;
 using System.Net.Http.Json;
 using thingslineWeb.Models;
+using ThingsLine.Modules;
 
 namespace thingslineWeb.Modules
 {
@@ -47,7 +48,7 @@ namespace thingslineWeb.Modules
 
         public List<DD> getDData(MapViweModel getMapViweModel)
         {
-            module.mdlSQLServer mdlSQL = new module.mdlSQLServer();
+            modSQLServer mdlSQL = new modSQLServer();
             StringBuilder strSql = new StringBuilder();
             getMapViweModel.MapData = "";
 

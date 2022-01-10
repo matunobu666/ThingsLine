@@ -16,12 +16,17 @@ namespace thingslineWeb.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy年MM月dd日}")]
         public DateTime SearchCndDate { get; set; }
+        public DateTime SearchCndDateED { get; set; }
         public string UserID { get; set; }
         public string GroupID { get; set; }
         public string IMSI { get; set; }
         public string afIMSI { get; set; }
         public HttpPostedFileWrapper uploadFile { get; set; }
+
+        /*ユーザーデータ*/
         
+        public IEnumerable<userDD> userDD { get; set; }
+
         /*MAP用データ*/
         /*履歴データ*/
         public string MapData { get; set; }
@@ -62,7 +67,14 @@ namespace thingslineWeb.Models
 
     }
 
+    public class userDD
+    {
+        public string userID { get; set; }
+        public string imsi { get; set; }
+        public string deviceType { get; set; }
 
+        public string bikeName { get; set; }
+    }
 
 
 

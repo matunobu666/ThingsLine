@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
-
+using ThingsLine.Modules;
 
 namespace imageAPI
 {
@@ -21,40 +21,40 @@ namespace imageAPI
         [FunctionName("imageRegistration")]
         public async System.Threading.Tasks.Task RunAsync([BlobTrigger("imagetmp/{name}", Connection = "")]Stream myBlob, string name, ILogger log)
         {
-            log.LogInformation("[imageRegistration] Start------------------------------------");
+            Console.WriteLine("[imageRegistration] Start------------------------------------");
 
             try {
-                module.mdlSQLServer mdlSQL = new module.mdlSQLServer();
+                modSQLServer mdlSQL = new modSQLServer();
                 StringBuilder sSQL = new StringBuilder();
 
-                log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+                Console.WriteLine($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
 
                 //-------------------------------------------------
                 //DB用情報を取得
                 string userID = "";
                 string groupID = "";
                 string dt = "";
-                log.LogInformation("[imageRegistration] name.Length  : " + name.Length);
+                Console.WriteLine("[imageRegistration] name.Length  : " + name.Length);
                 if (name.Length == 57)
                 {
                     //ユーザーのみ
                     userID = name.Substring(0, 36);
-                    log.LogInformation("[imageRegistration] userID : " + userID);
+                    Console.WriteLine("[imageRegistration] userID : " + userID);
 
                     dt = name.Substring(36, 17);
-                    log.LogInformation("[imageRegistration] dt : " + dt);
+                    Console.WriteLine("[imageRegistration] dt : " + dt);
                 }
                 else if (name.Length == 90)
                 {
                     //グループ
                     userID = name.Substring(0, 36);
-                    log.LogInformation("[imageRegistration] userID : " + userID);
+                    Console.WriteLine("[imageRegistration] userID : " + userID);
 
                     groupID = name.Substring(36, 33);
-                    log.LogInformation("[imageRegistration] groupID : " + groupID);
+                    Console.WriteLine("[imageRegistration] groupID : " + groupID);
 
                     dt = name.Substring(69, 17);
-                    log.LogInformation("[imageRegistration] dt : " + dt);
+                    Console.WriteLine("[imageRegistration] dt : " + dt);
                 }
                 else {
                     throw new Exception("ERR nomelength:" + name.Length);
@@ -71,9 +71,7 @@ namespace imageAPI
 
                 string uploadDt = dty + "/" + dtm + "/" + dtd + " " + dth + ":" + dtm2 + ":" + dts + ":" + dtf;
 
-
-                log.LogInformation("[imageRegistration] uploadDt : " + uploadDt);
-
+                Console.WriteLine("[imageRegistration] uploadDt : " + uploadDt);
 
                 //-------------------------------------------------
                 //  基本情報
@@ -87,11 +85,10 @@ namespace imageAPI
                                 + " where dt <= dateadd(hour, 9, '" + uploadDt + "')"
                                 + " and d_lat IS NOT NULL"
                                 + " and d_lon IS NOT NULL"
-                                + " and imsi = (SELECT imsi"
-                                        + " FROM [dbo].[U_Device]"
-                                        + " where userID = '" + userID + "')"
+                                + " and imsi = (SELECT UD.imsi FROM [dbo].[U_Device] as UD  join [dbo].[U_BIKE] as UB  on ( UD.bikeID = UB.bikeID )"
+                                        + " where UD.userID = '" + userID + "' and UB.sortNO = 1)"
                                 + " order by dt desc");
-                log.LogInformation("[imageRegistration] sql : " + sSQL.ToString());
+                Console.WriteLine("[imageRegistration] sql : " + sSQL.ToString());
 
                 List<DD> retDD_Soracom000 = mdlSQL.GetSQL<DD>(sSQL);
 
@@ -111,10 +108,10 @@ namespace imageAPI
                     toFolder = "g" + groupID.ToLower();
                 }
 
-                log.LogInformation("[imageRegistration] fromFolder : " + fromFolder);
-                log.LogInformation("[imageRegistration] toFolder : " + toFolder);
-                log.LogInformation("[imageRegistration] fileID : " + fileID);
-                module.mdlStorage mStorage = new module.mdlStorage();
+                Console.WriteLine("[imageRegistration] fromFolder : " + fromFolder);
+                Console.WriteLine("[imageRegistration] toFolder : " + toFolder);
+                Console.WriteLine("[imageRegistration] fileID : " + fileID);
+                modStorage mStorage = new modStorage();
 
                 await mStorage.CopyBlobAsync(fromFolder, toFolder, fileID);
 
@@ -171,15 +168,15 @@ namespace imageAPI
                     + ",0"
                     + ")"
                     );
-                log.LogInformation("[imageRegistration] sql : " + sSQL.ToString());
+                Console.WriteLine("[imageRegistration] sql : " + sSQL.ToString());
 
                 Exception retB =  mdlSQL.setSQL(sSQL.ToString());
-                log.LogInformation("[imageRegistration] END------------------------------------ ");
+                Console.WriteLine("[imageRegistration] END------------------------------------ ");
             }
             catch (Exception ex)
             {
-                log.LogError("[imageRegistration] " + ex.ToString());
-                log.LogError("[imageRegistration] END(ERR)------------------------------------ ");
+                Console.Error.WriteLine("[imageRegistration] " + ex.ToString());
+                Console.Error.WriteLine("[imageRegistration] END(ERR)------------------------------------ ");
             }
 
 
